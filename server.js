@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const app = express();
 
+// rota que pode chamar o backend
 var corsOptions = {
   origin: "http://localhost:3000"
 };
@@ -31,6 +32,9 @@ app.get("/", (req, res) => {
 });
 
 require("./routes/user.routes.js")(app);
+require("./routes/ingrediente.routes.js")(app);
+require("./routes/receita.routes.js")(app);
+require("./routes/doce.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -1,18 +1,24 @@
 module.exports = (sequelize, Sequelize) => {
-    const Ingrediente = sequelize.define("ingrediente", {
+    const Receita = sequelize.define("receita", {
       nome: {
         type: Sequelize.STRING
       },
-      marca: {
+      categoria: {
         type: Sequelize.STRING
       },
-      quantEmb: {
+      ingredientes: {
         type: Sequelize.STRING
       },
-      precoUnit: {
+      tempoPrep: {
         type: Sequelize.STRING
       },
-      precogml: {
+      rendimento: {
+        type: Sequelize.STRING
+      },
+      custo: {
+        type: Sequelize.STRING
+      },
+      anotacoes: {
         type: Sequelize.STRING
       },
       imagem: {
@@ -20,5 +26,5 @@ module.exports = (sequelize, Sequelize) => {
       }
     });
   
-    return Ingrediente;
+    return Receita;
   };

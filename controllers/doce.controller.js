@@ -1,8 +1,8 @@
 const db = require("../models");
-const User = db.users;
+const Doce = db.doces;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new User
+// Create and Save a new Doce
 exports.create = (req, res) => {
   // Validate request
 //   if (!req.body.nome) {
@@ -12,128 +12,135 @@ exports.create = (req, res) => {
 //     return;
 //   }
 
-  // Create a User
-  const user = {
+  // Criar um Doce
+  const doce = {
     nome: req.body.nome,
-    email: req.body.email,
-    username: req.body.username,
-    senha: req.body.senha
+    categoria: req.body.categoria,
+    receitas: req.body.receitas,
+    tempoPrep: req.body.tempoPrep,
+    rendimento: req.body.rendimento,
+    custo: req.body.custo,
+    margemLucro: req.body.margemLucro,
+    valorTotal: req.body.valorTotal,
+    valorTotalMargem: req.body.valorTotalMargem,
+    anotacoes: req.body.anotacoes,
+    imagem: req.body.imagem
   };
 
-  // Save User in the database
-  User.create(user)
+  // Salvar o Doce no Banco
+  Doce.create(doce)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the User."
+          err.message || "Some error occurred while creating the Doce."
       });
     });
 };
 
-// Update a User by the id in the request
+// Update a Doce by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    User.update(req.body, {
+    Doce.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "User was updated successfully."
+            message: "Doce was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+            message: `Cannot update Doce with id=${id}. Maybe Doce was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating User with id=" + id
+          message: "Error updating Doce with id=" + id
         });
       });
 };
 
-// Delete a User with the specified id in the request
+// Delete a Doce with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    User.destroy({
+    Doce.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "User was deleted successfully!"
+            message: "Doce was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete User with id=${id}. Maybe User was not found!`
+            message: `Cannot delete Doce with id=${id}. Maybe Doce was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete User with id=" + id
+          message: "Could not delete Doce with id=" + id
         });
       });
 };
 
-// Delete all Users from the database.
+// Delete all Doces from the database.
 exports.deleteAll = (req, res) => {
-    User.destroy({
+    Doce.destroy({
         where: {},
         truncate: false
       })
         .then(nums => {
-          res.send({ message: `${nums} Users were deleted successfully!` });
+          res.send({ message: `${nums} Doces were deleted successfully!` });
         })
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while removing all users."
+              err.message || "Some error occurred while removing all Doces."
           });
         });
 };
 
-// Retrieve all Users from the database.
+// Retrieve all Doce from the database.
 exports.findAll = (req, res) => {
     const nome = req.query.nome;
     var condition = nome ? { nome: { [Op.iLike]: `%${nome}%` } } : null;
   
-    User.findAll({ where: condition })
+    Doce.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving users."
+            err.message || "Some error occurred while retrieving Doces."
         });
       });
 };
 
-// Find a single User with an id
+// Find a single Doce with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    User.findByPk(id)
+    Doce.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find user with id=${id}.`
+            message: `Cannot find Doce with id=${id}.`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving user with id=" + id
+          message: "Error retrieving Doce with id=" + id
         });
       });
 };

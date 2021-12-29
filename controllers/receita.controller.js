@@ -1,8 +1,8 @@
 const db = require("../models");
-const User = db.users;
+const Receita = db.receitas;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new User
+// Create and Save a new Receita
 exports.create = (req, res) => {
   // Validate request
 //   if (!req.body.nome) {
@@ -12,128 +12,132 @@ exports.create = (req, res) => {
 //     return;
 //   }
 
-  // Create a User
-  const user = {
+  // Create a Receita
+  const receita = {
     nome: req.body.nome,
-    email: req.body.email,
-    username: req.body.username,
-    senha: req.body.senha
+    categoria: req.body.categoria,
+    ingredientes: req.body.ingredientes,
+    tempoPrep: req.body.tempoPrep,
+    rendimento: req.body.rendimento,
+    custo: req.body.custo,
+    anotacoes: req.body.anotacoes,
+    imagem: req.body.imagem
   };
 
-  // Save User in the database
-  User.create(user)
+  // Save Receita in the database
+  Receita.create(receita)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the User."
+          err.message || "Some error occurred while creating the Receita."
       });
     });
 };
 
-// Update a User by the id in the request
+// Update a Receita by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    User.update(req.body, {
+    Receita.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "User was updated successfully."
+            message: "Receita was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+            message: `Cannot update Receita with id=${id}. Maybe User was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating User with id=" + id
+          message: "Error updating Receita with id=" + id
         });
       });
 };
 
-// Delete a User with the specified id in the request
+// Delete a Receita with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    User.destroy({
+    Receita.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "User was deleted successfully!"
+            message: "Receita was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete User with id=${id}. Maybe User was not found!`
+            message: `Cannot delete Receita with id=${id}. Maybe User was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete User with id=" + id
+          message: "Could not delete Receita with id=" + id
         });
       });
 };
 
-// Delete all Users from the database.
+// Delete all Receitas from the database.
 exports.deleteAll = (req, res) => {
-    User.destroy({
+    Receita.destroy({
         where: {},
         truncate: false
       })
         .then(nums => {
-          res.send({ message: `${nums} Users were deleted successfully!` });
+          res.send({ message: `${nums} Receitas were deleted successfully!` });
         })
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while removing all users."
+              err.message || "Some error occurred while removing all Receitas."
           });
         });
 };
 
-// Retrieve all Users from the database.
+// Retrieve all Receitas from the database.
 exports.findAll = (req, res) => {
     const nome = req.query.nome;
     var condition = nome ? { nome: { [Op.iLike]: `%${nome}%` } } : null;
   
-    User.findAll({ where: condition })
+    Receita.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving users."
+            err.message || "Some error occurred while retrieving Receitas."
         });
       });
 };
 
-// Find a single User with an id
+// Find a single Receita with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    User.findByPk(id)
+    Receita.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find user with id=${id}.`
+            message: `Cannot find Receita with id=${id}.`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving user with id=" + id
+          message: "Error retrieving Receita with id=" + id
         });
       });
 };
