@@ -1,3 +1,5 @@
+// const { DataTypes } = require("sequelize/dist");
+
 module.exports = (sequelize, Sequelize) => {
     const Receita = sequelize.define("receita", {
       nome: {
@@ -7,7 +9,8 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       ingredientes: {
-        type: Sequelize.STRING
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
+        // Sequelize.ARRAY(Sequelize.TEXT)
       },
       tempoPrep: {
         type: Sequelize.STRING
