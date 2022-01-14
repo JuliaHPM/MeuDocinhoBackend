@@ -1,6 +1,3 @@
-// https://www.bezkoder.com/react-node-express-postgresql/
-//https://github.com/bezkoder/node-js-postgresql-crud-example/blob/master/app/routes/turorial.routes.js
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -15,12 +12,6 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// app.use('/login', (req, res) => {
-//   res.send({
-//     token: 'test123'
-//   });
-// });
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -46,3 +37,14 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+
+
+// app.use('/login', (req, res) => {
+//   res.send({
+//     token: 'test123'
+//   });
+// });
+
+// https://www.bezkoder.com/react-node-express-postgresql/
+//https://github.com/bezkoder/node-js-postgresql-crud-example/blob/master/app/routes/turorial.routes.js
