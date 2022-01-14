@@ -24,5 +24,7 @@ module.exports = app => {
     // Retrieve all published Users
     // router.get("/published", users.findAllPublished);
   
+    router.post('/login', users.login);
+
     app.use('/api/users', router);
   };

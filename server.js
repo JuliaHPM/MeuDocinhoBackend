@@ -16,6 +16,12 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
+// app.use('/login', (req, res) => {
+//   res.send({
+//     token: 'test123'
+//   });
+// });
+
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
@@ -24,9 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models/index.js");
 db.sequelize.sync();
-// db.sequelize.sync({ force: true }).then(() => {
-//     console.log("Drop and re-sync db.");
-//   });
 
 // simple route
 app.get("/", (req, res) => {
