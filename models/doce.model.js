@@ -7,7 +7,8 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       receitas: {
-        type: Sequelize.STRING
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue:[]
       },
       tempoPrep: {
         type: Sequelize.STRING
