@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       ingredientes: {
-        type: Sequelize.STRING
+        type: Sequelize.JSON
         // Sequelize.ARRAY(Sequelize.TEXT)
       },
       tempoPrep: {
