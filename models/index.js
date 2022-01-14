@@ -1,7 +1,13 @@
 const dbConfig = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize('postgres://yfxeybcubfboqc:74620a3dcc373bc7401cd53758e942c3df26d111910968f4ea185e5e7e46dc26@ec2-52-206-124-160.compute-1.amazonaws.com:5432/d1r5jfmjv37ckd'
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol:'postgres',
+  dialectOptions:{
+    ssl:true
+  }
+}
   
   );
 
